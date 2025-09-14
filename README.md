@@ -1,1 +1,2 @@
 # Task-Manager
+A simple yet powerful Task Manager application built with Node.js, Express, and MongoDB. This app allows users to create, read, update, and delete tasks (CRUD) with a clean and organized backend, making it easy to manage daily tasks.
