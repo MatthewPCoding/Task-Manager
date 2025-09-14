@@ -1,12 +1,24 @@
+/**
+ * Task Manager Frontend Logic
+ * ---------------------------
+ * Handles task CRUD operations by communicating with the
+ * Express/MongoDB backend and updating the UI dynamically.
+ */
 
 const API_URL = "http://localhost:3000/api/tasks";
 
+/**
+ * Fetch and render all tasks from the backend.
+ */
 async function fetchTasks() {
     const res = await fetch(API_URL);
     const tasks = await res.json();
     renderTasks(tasks);
 }
 
+/**
+ * Add a new task to the database.
+ */
 async function addTask() {
     const input = document.getElementById("taskInput");
     const text = input.value.trim();
@@ -22,6 +34,11 @@ input.value = "";
 fetchTasks();
 }
 
+/**
+ * Toggle completion status of a task.
+ * @param {string} id - MongoDB task ID
+ * @param {boolean} done - Current completion status
+ */
 async function toggleTask(id, done) {
      await fetch(`${API_URL}/${id}`, {
     method: "PUT",
@@ -31,11 +48,18 @@ async function toggleTask(id, done) {
   fetchTasks();
 }
 
+/**
+ * Delete a task by ID.
+ */
 async function deleteTask(id) {
     await fetch(`${API_URL}/${id}`, { method: "DELETE" });
   fetchTasks();
 }
 
+/**
+ * Render the list of tasks in the DOM.
+ * @param {Array} tasks - Array of task objects from the backend
+ */
 function renderTasks(tasks) {
   const list = document.getElementById("tasklist");
   list.innerHTML = "";
@@ -47,15 +71,18 @@ function renderTasks(tasks) {
         ${task.text}
       </span>
       <div>
-        <button onclick="toggleTask(${task.id}, ${task.done})">
+        <button onclick="toggleTask('${task._id}', ${task.done})">
           ${task.done ? "Undo" : "Done"}
         </button>
-        <button onclick="deleteTask(${task.id})">❌</button>
+        <button onclick="deleteTask('${task._id}')">❌</button>
       </div>
     `;
     list.appendChild(li);
   });
 }
 
+// Set up event listeners
 document.getElementById("addTaskBtn").addEventListener("click", addTask);
+
+// Initial fetch on page load
 fetchTasks();

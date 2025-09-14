@@ -1,3 +1,10 @@
+
+<!--
+  Task Manager
+  -----------
+  Frontend interface for creating, viewing, updating,
+  and deleting tasks. Connects to a Node/Express/MongoDB backend.
+-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,11 +16,13 @@
 <body>
     <h1>Task Manager</h1>
 
+    <!-- Input field and button to add a new task -->
     <div class="task-form">
         <input type="text" id="taskInput" placeholder="Enter a new task">
         <button id="addTaskBtn">Add Task</button>
     </div>
 
+    <!-- Task list populated by script.js -->
     <ul id="tasklist"></ul>
 
     <script src="script.js"></script>
