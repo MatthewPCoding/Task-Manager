@@ -1,0 +1,52 @@
+
+/*
+  Task Manager Styles
+  -------------------
+  Provides a clean, centered layout for the task list
+  and form elements.
+*/
+
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f4f9;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Container for input field and button */
+.task-form {
+    margin-bottom: 20px;
+}
+
+/* Text input styling */
+#taskInput {
+    padding: 8px;
+    width: 200px;
+}
+
+/* General button styles */
+button {
+    padding: 8px 12px;
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+/* Task list layout */
+ul {
+    list-style: none;
+    padding: 0;
+    max-width: 400px;
+    margin: auto;
+}
+
+/* Individual task item styling */
+li {
+    background: white;
+    margin: 8px 0;
+    padding: 10px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
