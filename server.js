@@ -33,12 +33,12 @@ const Task = mongoose.model('Task', TaskSchema);
 
 const path = require("path");
 
-// Serve the root folder as static files
-app.use(express.static(__dirname));
+// Serve everything inside /public as static files
+app.use(express.static(path.join(__dirname, "public")));
 
-//  Catch-all for SPA (Express 5+)
-app.get("/.*/", (req, res) => {
-  res.sendFile(path.join(__dirname, "index.html"));
+// Serve index.html for all non-API routes:
+app.use((req, res) => {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
 // ── CRUD Routes ────────────────────────────────────────────────
