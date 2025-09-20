@@ -5,7 +5,7 @@
  * Express/MongoDB backend and updating the UI dynamically.
  */
 
-const API_URL = "http://localhost:3000/api/tasks";
+const API_URL = "/api/tasks";
 
 /**
  * Fetch and render all tasks from the backend.
