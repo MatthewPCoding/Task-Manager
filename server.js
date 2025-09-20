@@ -36,8 +36,8 @@ const path = require("path");
 // Serve the root folder as static files
 app.use(express.static(__dirname));
 
-// Optional: send index.html for any unknown route
-app.get("*", (req, res) => {
+//  Catch-all for SPA (Express 5+)
+app.get("/*", (req, res) => {
   res.sendFile(path.join(__dirname, "index.html"));
 });
 
