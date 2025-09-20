@@ -11,35 +11,26 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const cors = require("cors");
 const mongoose = require("mongoose");
+const path = require("path");
 const uri = process.env.MONGO_URI;
 
 // Enable Cross-Origin Resource Sharing for the frontend
 app.use(cors());
+
+// Parse JSON request bodies
+app.use(express.json());
 
 // Connect to MongoDB using environment variable from .env
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("MongoDB connected successfully"))
   .catch(err => console.error("MongoDB connection error:", err));
 
-// Parse JSON request bodies
-app.use(express.json());
-
-// ── Mongoose Model 
+  // ── Mongoose Model 
 const TaskSchema = new mongoose.Schema({
   text: String,
   done: { type: Boolean, default: false }
 });
-const Task = mongoose.model('Task', TaskSchema);
-
-const path = require("path");
-
-// Serve everything inside /public as static files
-app.use(express.static(path.join(__dirname, "public")));
-
-// Serve index.html for all non-API routes:
-app.use((req, res) => {
-  res.sendFile(path.join(__dirname, "public", "index.html"));
-});
+const Task = mongoose.model('Task', TaskSchema); 
 
 // ── CRUD Routes ────────────────────────────────────────────────
 
@@ -75,10 +66,13 @@ app.delete("/api/tasks/:id", async (req, res) => {
   result ? res.json({ success: true }) : res.status(404).json({ error: "task not found" });
 });
 
-// Start the Express server
-app.listen(PORT, () =>
-    console.log(`Server running at http://localhost:${PORT}`)
-);
+// Serve everything inside /public as static files
+app.use(express.static(path.join(__dirname, "public")));
+
+// Serve index.html for all non-API routes:
+app.use((req, res) => {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
+});
 
 // Global error handler
 app.use((err, req, res, next) => {
@@ -86,3 +80,7 @@ app.use((err, req, res, next) => {
   res.status(500).json({ error: 'Internal server error' });
 });
 
+// Start the Express server
+app.listen(PORT, () =>
+    console.log(`Server running at http://localhost:${PORT}`)
+);
